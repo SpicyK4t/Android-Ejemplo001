@@ -2,6 +2,7 @@ package com.example.crusader.ejemplo001;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +19,9 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 
 public class DemoAdquisicionAudio extends Activity {
@@ -41,13 +45,53 @@ public class DemoAdquisicionAudio extends Activity {
 
     boolean debug = false;
 
+    private Button btnInicio;
+    private Button btnParar;
+    private Button btnCerrar;
+
+    public void Iniciar() {
+        startAquisition();
+    }
+
+    public void Detener() {
+        stopAquisition();
+    }
+
+    public void Cerrar() {
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.w(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo_adquisicion_audio);
 
-        startAquisition();
+        btnInicio = (Button) findViewById(R.id.btnInicio);
+        btnInicio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Iniciar();
+            }
+        });
+
+        btnParar  = (Button) findViewById(R.id.btnParar);
+        btnParar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Detener();
+            }
+        });
+
+        btnCerrar = (Button) findViewById(R.id.btnCerrar);
+        btnCerrar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Cerrar();
+            }
+        });
+
+
     }
 
     @Override
@@ -59,7 +103,7 @@ public class DemoAdquisicionAudio extends Activity {
     @Override
     protected void onDestroy() {
         Log.w(TAG, "onDestroy");
-        stopAquisition();
+
         super.onDestroy();
     }
 
@@ -74,6 +118,7 @@ public class DemoAdquisicionAudio extends Activity {
                 }
                 catch(FileNotFoundException e) {
                     e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                 }
 
                 bufferSize = AudioRecord.getMinBufferSize(frequency, channelConfiguration,
@@ -97,6 +142,7 @@ public class DemoAdquisicionAudio extends Activity {
                             }
                             catch (IOException e){
                                 e.printStackTrace();
+                                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                             }
                         }
                         else {
@@ -112,6 +158,7 @@ public class DemoAdquisicionAudio extends Activity {
                 }
                 catch (IOException e) {
                     e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
                 }
 
                 copyWaveFile(getTempFilename(), getFileName());
@@ -120,6 +167,7 @@ public class DemoAdquisicionAudio extends Activity {
             catch(Throwable t) {
                 t.printStackTrace();
                 Log.e("AudioRecord", "Recording Failed");
+                Toast.makeText(getApplicationContext(), "Recording Failed", Toast.LENGTH_LONG).show();
             }
             return null;
         }

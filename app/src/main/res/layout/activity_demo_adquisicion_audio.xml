@@ -1,16 +1,39 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".DemoAdquisicionAudio">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#000000"
+    android:weightSum="1">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Iniciar Captura"
+        android:id="@+id/btnInicio"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff" />
 
-</RelativeLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Detener Captura"
+        android:id="@+id/btnParar"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.95"
+        android:id="@+id/espacio" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cerrar Applicacion"
+        android:id="@+id/btnCerrar"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff" />
+</LinearLayout>
