@@ -1,17 +1,16 @@
 package com.example.crusader.ejemplo001;
 
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ShortBuffer;
-
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
@@ -21,9 +20,9 @@ import android.os.Handler;
 import android.util.Log;
 
 
-public class Ejemplo001 extends Activity {
+public class DemoAdquisicionAudio extends Activity {
 
-    private static final String TAG = Ejemplo001.class.getSimpleName();
+    private static final String TAG = DemoAdquisicionAudio.class.getSimpleName();
     private static final int RECORDER_BPP = 16;
     private static final String AUDIO_RECORDER_FILE_EXT_WAV = ".wav";
     private static final String AUDIO_RECORDER_FOLDER = "AudioRecorder";
@@ -46,7 +45,7 @@ public class Ejemplo001 extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.w(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ejemplo001);
+        setContentView(R.layout.activity_demo_adquisicion_audio);
 
         startAquisition();
     }
@@ -281,7 +280,7 @@ public class Ejemplo001 extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.ejemplo001, menu);
+        getMenuInflater().inflate(R.menu.demo_adquisicion_audio, menu);
         return true;
     }
 
@@ -303,11 +302,11 @@ public class Ejemplo001 extends Activity {
         Log.w(TAG, "startAquisition");
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
-           public void run () {
-               started = true;
-               recordTask = new RecordAudio();
-               recordTask.execute();
-           }
+            public void run () {
+                started = true;
+                recordTask = new RecordAudio();
+                recordTask.execute();
+            }
         }, 500);
     }
 
