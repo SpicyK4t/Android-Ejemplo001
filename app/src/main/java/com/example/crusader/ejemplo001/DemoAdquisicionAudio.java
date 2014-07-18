@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -35,19 +36,22 @@ public class DemoAdquisicionAudio extends Activity {
     FileOutputStream os = null;
 
     int bufferSize;
-    int frequency = 44100; // 8000;
+    int frequency =  44100; //8000; // Sampling Frecuency
     int channelConfiguration = AudioFormat.CHANNEL_IN_MONO;
     int audioEncoding = AudioFormat.ENCODING_PCM_16BIT;
     boolean started = false;
     RecordAudio recordTask;
 
-    short threshold = 15000;
+    short threshold = 1000;
 
     boolean debug = false;
 
     private Button btnInicio;
     private Button btnParar;
     private Button btnCerrar;
+    private Button btnReiniciar;
+
+    private TextView txtRawData;
 
     public void Iniciar() {
         startAquisition();
@@ -61,11 +65,23 @@ public class DemoAdquisicionAudio extends Activity {
         finish();
     }
 
+    public void Reiniciar() {
+        resetAquisition();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.w(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo_adquisicion_audio);
+
+        btnReiniciar = (Button) findViewById(R.id.btnReiniciar);
+        btnReiniciar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Reiniciar();
+            }
+        });
 
         btnInicio = (Button) findViewById(R.id.btnInicio);
         btnInicio.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +107,7 @@ public class DemoAdquisicionAudio extends Activity {
             }
         });
 
+        txtRawData = (TextView) findViewById(R.id.lblRawData);
 
     }
 
@@ -103,7 +120,6 @@ public class DemoAdquisicionAudio extends Activity {
     @Override
     protected void onDestroy() {
         Log.w(TAG, "onDestroy");
-
         super.onDestroy();
     }
 
@@ -139,6 +155,11 @@ public class DemoAdquisicionAudio extends Activity {
                             byte [] byteBuffer = ShortToByte(buffer, bufferReadResult);
                             try {
                                 os.write(byteBuffer);
+                                //Log.i("", "_____________CHUNK DE BITS");
+                                for(int i = 0; i < byteBuffer.length; i++)
+                                    System.out.println(String.valueOf(byteBuffer[i]));
+                                    //Log.i("Datos Crudos(" + i +")", String.valueOf(byteBuffer[i]));
+                                //Log.i("", "_____________FIN DE  CHUNK");
                             }
                             catch (IOException e){
                                 e.printStackTrace();
@@ -217,7 +238,7 @@ public class DemoAdquisicionAudio extends Activity {
             File file = new File(filepath, AUDIO_RECORDER_FOLDER);
 
             if(!file.exists()){
-                file.mkdirs();
+                file.mkdir();
             }
 
             File tempFile = new File(filepath, AUDIO_RECORDER_TEMP_FILE);
@@ -334,12 +355,14 @@ public class DemoAdquisicionAudio extends Activity {
 
     public void resetAquisition(){
         Log.w(TAG, "resetAquisition");
+        Toast.makeText(getApplicationContext(), "Reset Adquisition", Toast.LENGTH_SHORT).show();
         stopAquisition();
         startAquisition();
     }
 
     public void stopAquisition(){
         Log.w(TAG, "stopAquisition");
+        Toast.makeText(getApplicationContext(), "Stop Adquisition", Toast.LENGTH_SHORT).show();
         if(started) {
             started = false;
             recordTask.cancel(true);
@@ -348,6 +371,7 @@ public class DemoAdquisicionAudio extends Activity {
 
     public void startAquisition() {
         Log.w(TAG, "startAquisition");
+        Toast.makeText(getApplicationContext(), "Start Adquisition", Toast.LENGTH_SHORT).show();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run () {

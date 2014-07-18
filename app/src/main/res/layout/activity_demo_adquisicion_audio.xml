@@ -17,23 +17,45 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Reiniciar Captura"
+        android:id="@+id/btnReiniciar"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Detener Captura"
         android:id="@+id/btnParar"
         android:layout_gravity="center_horizontal"
         android:textColor="#ffffff" />
 
-    <Space
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="RawData"
+        android:id="@+id/lblEtiqueta"
+        android:textColor="#FFFFFF"
+        android:textIsSelectable="false"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.95"
-        android:id="@+id/espacio" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/lblRawData"
+        android:layout_weight="0.72"
+        android:textStyle="bold"
+        android:textSize="12pt"
+        android:textColor="#ffffff"
+        android:inputType="textMultiLine" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cerrar Applicacion"
+        android:text="Cerrar Aplicación"
         android:id="@+id/btnCerrar"
-        android:layout_gravity="center_horizontal"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:layout_gravity="bottom" />
 </LinearLayout>
